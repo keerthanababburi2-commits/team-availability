@@ -1,0 +1,31 @@
+kind = "web"
+previewPath = "/"
+title = "Team Availability Tracker"
+version = "1.0.0"
+id = "artifacts/team-availability"
+router = "path"
+
+[[integratedSkills]]
+name = "react-vite"
+version = "1.0.0"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 18183
+
+[services.development]
+run = "pnpm --filter @workspace/team-availability run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/team-availability", "run", "build" ]
+publicDir = "artifacts/team-availability/dist/public"
+serve = "static"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "18183"
+BASE_PATH = "/"
